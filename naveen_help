@@ -1,0 +1,103 @@
+$>composer init
+
+#add the auto loading section by adding the auto load entry. In this case that's a standard describing how to auto load files.
+#Now let me define two namespaces. Everything that starts with an app will be located inside the app directory.
+#On the other hand, everything starting with core.So the generic framework logic will go into the core directory.
+
+{
+"name": "ernav/blog-oop",
+"authors": [
+{
+"name": "Naveen Kumar",
+"email": "er.crackerjack@gmail.com"
+}
+],
+"autoload": {
+"psr-4": {
+"App\\": "app/",
+"Core\\": "core/"
+}
+},
+"require": {}
+}
+
+#$>composer dump-autoload command, Generate the Autoload files and the vendor folder.
+vendor->
+autoload.php
+composer->
+autoload_files.php (total around six files.)
+
+#This is the one we need to make outloading work.
+$>composer dump-autoload
+
+project_directory structure
+
+app
+core
+->Router.php
+public
+->index (entery point)
+vendor
+composer.json
+
+$>php -S localhost:8000 -t public
+
+/\*
+
+So dependency injection is a design pattern.
+
+And in this design pattern objects receive their dependencies instead of creating them or fetching them themselves.
+What does it mean in a simpler language.
+So let's consider that example that we have right here.
+You've got a database class.
+It needs to have a config.
+So it needs to get the configuration of the database the database name ports whatever information you might need about the database instead of the database class trying to fetch this information from a
+file, this info is just passed to the database.
+
+Typically it's just done through a constructor.
+And then there is another class that is called container.
+Or it might just be called application.
+This is how it would be called in our case an app that is a dependency injection container.
+That basically has a map of all those classes that are already created with all their dependencies.
+And if you have, let's say a script command line interface script that needs to load the database schema.
+That's something we have done previously in the previous project.
+Now we will have.
+Now we'd like to have a more generic approach to those CLI scripts and will have more of them as well.
+And consider we need a database so we don't want to worry about how do we get the database.
+Where do we get the configuration for the database from instead?
+All we do is we tell the Di container that we need a database, and the container already has the database
+object created with the proper configuration passed to it.
+So we just get it right away.
+And that's the whole concept.
+\*/
+
+{
+"name": "ernav/blog-oop",
+"authors": [
+{
+"name": "Naveen Kumar",
+"email": "er.crackerjack@gmail.com"
+}
+],
+"autoload": {
+"psr-4": {
+"App\\": "app/",
+"Core\\": "core/"
+}
+},
+"require": {},
+"scripts": {
+"schema:load": "php bin/schema_load.php"
+}
+}
+
+//"schema:load": "php bin/schema_load.php" to create database table
+composer schema:load
+
+/_
+So our model class will heavily use this database class. It's going to get access to it through the container.
+_/
+
+static::class
+//Every class has this special constant that will give you the full class
+//name, including the namespace,
