@@ -72,7 +72,7 @@ class Router{
 
 
     //Start with the app prefix. Then we go with controller namespace again slash, and only then we've got the actual controller class name, and I can directly use this controller variable here.So this would be our class name.
-    $controllerClass = "App\\Controller\\$controller";
+    $controllerClass = "App\\Controllers\\$controller";
 
     // I can create a new class in PHP by using a $controllerClass variable.
     //action is a method of a controller.That's why I can also use the action variable in place of the method name.

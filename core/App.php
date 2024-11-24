@@ -2,6 +2,8 @@
 
 namespace Core;
 
+use Exception;
+
 class App{
 
   protected static $container = [];

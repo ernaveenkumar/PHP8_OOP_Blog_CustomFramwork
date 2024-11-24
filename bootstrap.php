@@ -15,6 +15,12 @@ $config = require_once __DIR__ .'/config.php';
 
 use Core\App;
 use Core\Database;
+use Core\ErrorHandler;
+
+set_exception_handler([ErrorHandler::class, 'handleException']);
+set_error_handler([ErrorHandler::class, 'handleError']);
+
+
 
 App::bind('config', $config);
 App::bind('database', new Database($config['database']));

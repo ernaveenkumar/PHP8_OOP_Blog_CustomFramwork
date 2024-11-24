@@ -1,6 +1,8 @@
 <?php
 namespace Core;
 
+use PDO;
+
 abstract class Model{
   protected static $table;
 
@@ -16,7 +18,7 @@ abstract class Model{
   public static function find($id):static|null{
 
     $db = App::get('database');
-    $result = $db->query("SELECT * FROM ". $table . "  WHERE id = ? ", [$id])->fetch(PDO::FETCH_ASSOC);
+    $result = $db->query("SELECT * FROM ". static::$table . "  WHERE id = ?", [$id])->fetch(PDO::FETCH_ASSOC);
 
     return $result ? static::createFromArray($result):null;
   }
@@ -27,7 +29,7 @@ abstract class Model{
 
     $db = App::get('database');
     //Get the name of columns inside $data
-    $columns = implode(', '. array_keys($data));
+    $columns = implode(', ', array_keys($data));
     //-> id, title, created_at, content
 
     $placeholders = implode(', ', array_fill(0, count($data), '?'));

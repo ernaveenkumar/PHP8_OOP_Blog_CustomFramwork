@@ -101,3 +101,5 @@ _/
 static::class
 //Every class has this special constant that will give you the full class
 //name, including the namespace,
+
+http_response_code(500);
